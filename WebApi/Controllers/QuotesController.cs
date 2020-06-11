@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Data.Models;
 using Data.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using WebApi.Filters;
@@ -13,6 +14,7 @@ using WebApi.Filters;
 namespace WebApi.Controllers
 {
     [ApiKeyAuth]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class QuotesController : ControllerBase
@@ -25,6 +27,9 @@ namespace WebApi.Controllers
         }
         // GET: api/<QuotesController>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(List<Quote>), 200)]
         public async Task<IActionResult> GetAllQuotes()
         {
             try
@@ -41,6 +46,9 @@ namespace WebApi.Controllers
 
         // GET api/<QuotesController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Quote), 200)]
         public async Task<IActionResult> GetQuoteById(string id)
         {
             try
@@ -62,6 +70,9 @@ namespace WebApi.Controllers
 
         // POST api/<QuotesController>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Quote), 200)]
         public async Task<IActionResult> CreateQuote(Quote quote)
         {
             try
@@ -80,6 +91,8 @@ namespace WebApi.Controllers
 
         // PUT api/<QuotesController>/5
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutQuote(string id, [FromBody] Quote quote)
         {
             try
@@ -97,6 +110,8 @@ namespace WebApi.Controllers
 
         // DELETE api/<QuotesController>/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteQuote(string id)
         {
             try
