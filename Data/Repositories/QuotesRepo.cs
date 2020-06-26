@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using MongoDB.Bson;
 using System;
+using System.Drawing;
 
 namespace Data.Repositories
 {
@@ -53,6 +54,15 @@ namespace Data.Repositories
             quoteIn.Id = Id;
             await _quotes.ReplaceOneAsync(i => i.Id == Id, quoteIn);
 
+        }
+
+        public async Task<Quote> GetRandomQuote()
+        {
+            Random rand = new Random();
+            var count = await _quotes.Find(i => true).CountDocumentsAsync();
+            var number = rand.Next(1, Convert.ToInt32(count));
+            var rec = await _quotes.Find(i => true).Skip(number).FirstOrDefaultAsync();
+            return rec;
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Data.Repositories
         Task<Quote> GetQuoteById(ObjectId Id);
         Task DeleteQuoteById(ObjectId Id);
         Task UpdateQuote(ObjectId Id, Quote quoteIn);
+        Task<Quote> GetRandomQuote();
     }
 }

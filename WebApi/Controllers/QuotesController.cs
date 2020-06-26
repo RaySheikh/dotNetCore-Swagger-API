@@ -26,7 +26,8 @@ namespace WebApi.Controllers
             _ctx = ctx;
         }
         // GET: api/<QuotesController>
-        [HttpGet]
+
+        [HttpGet("AllQuotes")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(List<Quote>), 200)]
@@ -41,7 +42,29 @@ namespace WebApi.Controllers
             {
                 return BadRequest(e);
             }
-            
+
+        }
+        [HttpGet("RandomQuote")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Quote), 200)]
+        public async Task<IActionResult> GetRandomQuote()
+        {
+            try
+            {
+                
+                var quote = await _ctx.GetRandomQuote();
+                if (quote != null)
+                {
+                    return Ok(quote);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
         }
 
         // GET api/<QuotesController>/5

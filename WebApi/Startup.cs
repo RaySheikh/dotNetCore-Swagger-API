@@ -26,6 +26,7 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,6 +39,14 @@ namespace WebApi
                 sp.GetRequiredService<IOptions<QuotesDatabaseSettings>>().Value);
 
             services.AddScoped<IQuotesRepo, QuotesRepo>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+               
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Quotes API", Version = "v1" });
@@ -74,6 +83,7 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 
