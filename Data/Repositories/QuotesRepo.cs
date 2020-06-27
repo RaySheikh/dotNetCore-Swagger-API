@@ -64,5 +64,6 @@ namespace Data.Repositories
             var rec = await _quotes.Find(i => true).Skip(number).FirstOrDefaultAsync();
             return rec;
         }
+
     }
 }

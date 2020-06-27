@@ -27,6 +27,7 @@ namespace WebApi.Controllers
         }
         // GET: api/<QuotesController>
 
+
         [HttpGet("AllQuotes")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
