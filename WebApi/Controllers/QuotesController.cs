@@ -45,6 +45,23 @@ namespace WebApi.Controllers
             }
 
         }
+        [HttpGet("QuoteByAuthor/{name}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(List<Quote>), 200)]
+        public async Task<IActionResult> QuoteByAuthor(string name)
+        {
+            try
+            {
+                var quotes = await _ctx.GetQuoteByAuthor(name);
+                return Ok(quotes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
+        }
         [HttpGet("RandomQuote")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -78,7 +95,7 @@ namespace WebApi.Controllers
             try
             {
                 var mongoId = ObjectId.Parse(id);
-                var quote = await _ctx.GetQuoteById(mongoId);
+                var quote = await _ctx.GetQuoteById(id);
                 if(quote != null)
                 {
                     return Ok(quote);
@@ -122,7 +139,7 @@ namespace WebApi.Controllers
             try
             {
                 var mongoId = ObjectId.Parse(id);
-                await _ctx.UpdateQuote(mongoId, quote);
+                await _ctx.UpdateQuote(id, quote);
                 return Ok();
             }
             catch (Exception e)
@@ -141,7 +158,7 @@ namespace WebApi.Controllers
             try
             {
                 var mongoId = ObjectId.Parse(id);
-                await _ctx.DeleteQuoteById(mongoId);
+                await _ctx.DeleteQuoteById(id);
                 return Ok();
             }
             catch (Exception e)

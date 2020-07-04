@@ -59,7 +59,14 @@ namespace WebApi
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {{
-                    new OpenApiSecurityScheme {Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "API-KEY" }}, new[] {"read"}
+                    new OpenApiSecurityScheme 
+                    {
+                        Reference = new OpenApiReference 
+                        {
+                            Type = ReferenceType.SecurityScheme, 
+                            Id = "API-KEY" 
+                        }}, 
+                        new[] {"read"}
                 }});
             });
         }

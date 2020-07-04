@@ -10,9 +10,10 @@ namespace Data.Repositories
         Task<Quote> CreateQuote(Quote quote);
         Task<List<Quote>> GetQuotesByCatagory(string catagory);
         Task<List<Quote>> GetAllQuotes();
-        Task<Quote> GetQuoteById(ObjectId Id);
-        Task DeleteQuoteById(ObjectId Id);
-        Task UpdateQuote(ObjectId Id, Quote quoteIn);
+        Task<Quote> GetQuoteById(string Id);
+        Task DeleteQuoteById(string Id);
+        Task UpdateQuote(string Id, Quote quoteIn);
         Task<Quote> GetRandomQuote();
+        Task<List<Quote>> GetQuoteByAuthor(string name);
     }
 }
